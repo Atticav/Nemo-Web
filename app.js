@@ -67,6 +67,8 @@ const PRONUNCIATION_REVIEW_WEIGHT = 5;
 const PRONUNCIATION_SCORE_RANGE = 26;
 const PRONUNCIATION_WARNING_THRESHOLD = 70;
 const PRONUNCIATION_GOOD_THRESHOLD = 82;
+const STUDY_TONE_VERY_SIMPLE = 'very-simple';
+const STUDY_TONE_SIMPLE = 'simple';
 
 const state = {
   route: normalizeRoute(window.location.hash),
@@ -80,6 +82,14 @@ const state = {
 function normalizeRoute(route) {
   const cleanRoute = route.replace('#', '') || '/';
   return ['/', '/dashboard', '/idiomas', '/estudos'].includes(cleanRoute) ? cleanRoute : '/';
+}
+
+function calculatePronunciationScore(lessonIndex, reviewCount) {
+  return (
+    PRONUNCIATION_BASE_SCORE +
+    (((lessonIndex + 1) * PRONUNCIATION_LESSON_WEIGHT + reviewCount * PRONUNCIATION_REVIEW_WEIGHT) %
+      PRONUNCIATION_SCORE_RANGE)
+  );
 }
 
 function render() {
@@ -300,8 +310,8 @@ function createStudiesView() {
           <div class="field">
             <label for="study-tone">Nível da explicação</label>
             <select id="study-tone" name="tone">
-              <option value="very-simple">Bem simples</option>
-              <option value="simple">Simples e objetiva</option>
+              <option value="${STUDY_TONE_VERY_SIMPLE}">Bem simples</option>
+              <option value="${STUDY_TONE_SIMPLE}">Simples e objetiva</option>
             </select>
           </div>
           <div class="button-row">
@@ -383,10 +393,7 @@ function bindActions() {
 
   document.querySelector('[data-action="pronunciation"]')?.addEventListener('click', () => {
     const lesson = lessons[state.lessonIndex];
-    const baseScore =
-      PRONUNCIATION_BASE_SCORE +
-      (((state.lessonIndex + 1) * PRONUNCIATION_LESSON_WEIGHT + state.reviewCount * PRONUNCIATION_REVIEW_WEIGHT) %
-        PRONUNCIATION_SCORE_RANGE);
+    const baseScore = calculatePronunciationScore(state.lessonIndex, state.reviewCount);
     state.pronunciation = {
       score: baseScore,
       title: baseScore >= PRONUNCIATION_GOOD_THRESHOLD ? 'Pronúncia muito boa' : 'Pronúncia em progresso',
@@ -402,7 +409,7 @@ function bindActions() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const topic = String(formData.get('topic') || '').trim();
-    const tone = String(formData.get('tone') || 'simple');
+    const tone = String(formData.get('tone') || STUDY_TONE_SIMPLE);
 
     if (!topic) return;
 
@@ -417,9 +424,9 @@ function buildStudyResult(topic, tone) {
   const base = template || buildFallbackTemplate(topic);
 
   return {
-    label: tone === 'very-simple' ? 'Explicação bem simples' : 'Explicação simples e objetiva',
+    label: tone === STUDY_TONE_VERY_SIMPLE ? 'Explicação bem simples' : 'Explicação simples e objetiva',
     explanation:
-      tone === 'very-simple'
+      tone === STUDY_TONE_VERY_SIMPLE
         ? `${base.explanation} Pense nisso como um passo a passo curto, sem palavras difíceis.`
         : base.explanation,
     summary: base.summary,
@@ -430,6 +437,7 @@ function buildStudyResult(topic, tone) {
 
 function buildFallbackTemplate(topic) {
   const cleanTopic = topic.replace(/\s+/g, ' ').trim();
+  // Usa a primeira frase ou cláusula para gerar uma resposta mockada mais focada quando não há template específico.
   const primaryTopic = cleanTopic
     .split(/[.,;\n]/)
     .map((item) => item.trim())
