@@ -573,7 +573,7 @@ function bindActions() {
 
   document.querySelector('[data-action="listen"]')?.addEventListener('click', () => {
     const phrase = getCurrentLesson().phrases[0];
-    state.lastAudioMessage = `\u00c1udio exemplo reproduzido: "${phrase}". Agora tente repetir em voz alta.`;
+    state.lastAudioMessage = `Áudio exemplo reproduzido: "${phrase}". Agora tente repetir em voz alta.`;
     render();
   });
 
