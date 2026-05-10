@@ -65,6 +65,7 @@ const PRONUNCIATION_BASE_SCORE = 68;
 const PRONUNCIATION_LESSON_WEIGHT = 9;
 const PRONUNCIATION_REVIEW_WEIGHT = 5;
 const PRONUNCIATION_SCORE_RANGE = 26;
+const PRONUNCIATION_WARNING_THRESHOLD = 70;
 const PRONUNCIATION_GOOD_THRESHOLD = 82;
 
 const state = {
@@ -185,7 +186,7 @@ function createLanguagesView() {
   const reviewReady = state.reviewCount >= lesson.reviewGoal;
   const pronunciationCard = state.pronunciation
     ? `
-      <div class="feedback-banner ${state.pronunciation.score < 70 ? 'warning' : ''}">
+      <div class="feedback-banner ${state.pronunciation.score < PRONUNCIATION_WARNING_THRESHOLD ? 'warning' : ''}">
         <strong>${state.pronunciation.title}</strong>
         <p>${state.pronunciation.message}</p>
         <div class="practice-meter" aria-hidden="true"><span style="width:${state.pronunciation.score}%"></span></div>
@@ -429,14 +430,14 @@ function buildStudyResult(topic, tone) {
 
 function buildFallbackTemplate(topic) {
   const cleanTopic = topic.replace(/\s+/g, ' ').trim();
-  const keywords = cleanTopic
+  const primaryTopic = cleanTopic
     .split(/[.,;\n]/)
     .map((item) => item.trim())
     .filter(Boolean)[0] || cleanTopic;
 
   return {
-    explanation: `Em palavras simples, ${keywords} pode ser entendido como um assunto que precisa ser dividido em partes menores. Primeiro, veja a ideia principal. Depois, observe como cada parte se conecta com exemplos do cotidiano.`,
-    summary: `Resumo rápido: ${keywords} fica mais fácil quando você separa conceito principal, exemplos e aplicação prática.`,
+    explanation: `Em palavras simples, ${primaryTopic} pode ser entendido como um assunto que precisa ser dividido em partes menores. Primeiro, veja a ideia principal. Depois, observe como cada parte se conecta com exemplos do cotidiano.`,
+    summary: `Resumo rápido: ${primaryTopic} fica mais fácil quando você separa conceito principal, exemplos e aplicação prática.`,
     topics: ['Ideia principal do tema', 'Exemplo prático do dia a dia', 'Palavras-chave para memorizar', 'Passo seguinte para revisar'],
     questions: ['Qual é a ideia principal desse conteúdo?', 'Como eu explicaria isso com minhas próprias palavras?', 'Que exemplo simples ajuda a lembrar do tema?'],
   };
