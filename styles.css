@@ -400,3 +400,70 @@ button:hover {
     padding: 22px;
   }
 }
+
+/* Seletores de idioma e nível no modo Idiomas */
+.selector-section {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 20px 28px;
+  display: grid;
+  gap: 14px;
+}
+
+.selector-section h3 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.selector-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.selector-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--surface-alt);
+  color: var(--text);
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.selector-btn:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.selector-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.active-badge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.active-badge span {
+  color: var(--muted);
+}
+
+.active-badge strong {
+  font-size: 1rem;
+}
