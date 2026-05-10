@@ -1,35 +1,208 @@
-const lessons = [
-  {
-    id: 0,
-    title: 'Trilha 1 · Inglês do dia a dia',
-    level: 'Iniciante',
-    focus: 'Cumprimentos e frases curtas',
-    vocabulary: ['Hello = Olá', 'Good morning = Bom dia', 'Thank you = Obrigado(a)'],
-    phrases: ['Hello! How are you?', 'Good morning, teacher.', 'Thank you for your help.'],
-    reviewGoal: 3,
-    pronunciationHint: 'Fale “thank” com a língua encostando levemente nos dentes.',
+const languageData = {
+  en: {
+    name: 'Inglês',
+    flag: '🇺🇸',
+    levels: {
+      iniciante: {
+        title: 'Inglês · Iniciante',
+        focus: 'Cumprimentos e frases curtas',
+        vocabulary: ['Hello = Olá', 'Good morning = Bom dia', 'Thank you = Obrigado(a)', 'Please = Por favor', 'Excuse me = Com licença'],
+        phrases: ['Hello! How are you?', 'Good morning, teacher.', 'Thank you for your help.', 'Excuse me, can you help me?'],
+        reviewGoal: 3,
+        pronunciationHint: 'Fale "thank" com a língua encostando levemente nos dentes.',
+      },
+      basico: {
+        title: 'Inglês · Básico',
+        focus: 'Apresentação e cotidiano',
+        vocabulary: ['My name is... = Meu nome é...', 'I am from... = Eu sou de...', 'I like... = Eu gosto de...', 'I work at... = Eu trabalho em...'],
+        phrases: ['My name is Ana, I am from Brazil.', 'I like to read and travel.', 'I work at a hospital.', 'What do you do for a living?'],
+        reviewGoal: 3,
+        pronunciationHint: 'Em "name", estique o som final como "nei-m".',
+      },
+      intermediario: {
+        title: 'Inglês · Intermediário',
+        focus: 'Situações do dia a dia',
+        vocabulary: ["Could you repeat that? = Pode repetir?", "I don't understand = Não entendo", 'Can we schedule a meeting? = Podemos agendar uma reunião?'],
+        phrases: ["Could you please repeat that more slowly?", "I don't quite understand what you mean.", 'Can we schedule a meeting for next week?'],
+        reviewGoal: 4,
+        pronunciationHint: 'Em "schedule", o "sch" soa como "sk" no inglês americano.',
+      },
+      avancado: {
+        title: 'Inglês · Avançado',
+        focus: 'Fluência e expressões idiomáticas',
+        vocabulary: ['To beat around the bush = Enrolar, não ir direto ao ponto', 'Hit the nail on the head = Acertar em cheio', 'Once in a blue moon = De vez em quando'],
+        phrases: ['Stop beating around the bush and tell me what happened.', 'You really hit the nail on the head with that analysis.', 'I only visit that restaurant once in a blue moon.'],
+        reviewGoal: 4,
+        pronunciationHint: 'Nas expressões idiomáticas, a entonação é tão importante quanto o vocabulário.',
+      },
+    },
   },
-  {
-    id: 1,
-    title: 'Trilha 2 · Inglês prático',
-    level: 'Iniciante',
-    focus: 'Apresentação pessoal',
-    vocabulary: ['My name is... = Meu nome é...', 'I am from... = Eu sou de...', 'Nice to meet you = Prazer em conhecer você'],
-    phrases: ['My name is Ana.', 'I am from Brazil.', 'Nice to meet you!'],
-    reviewGoal: 3,
-    pronunciationHint: 'Em “name”, estique o som final como “nei-m”.',
+  es: {
+    name: 'Espanhol',
+    flag: '🇪🇸',
+    levels: {
+      iniciante: {
+        title: 'Espanhol · Iniciante',
+        focus: 'Saudações e frases básicas',
+        vocabulary: ['Hola = Olá', 'Buenos días = Bom dia', 'Gracias = Obrigado(a)', 'Por favor = Por favor', 'Lo siento = Desculpe'],
+        phrases: ['¡Hola! ¿Cómo estás?', 'Buenos días, mucho gusto.', 'Gracias por su ayuda.', 'Lo siento, no entiendo.'],
+        reviewGoal: 3,
+        pronunciationHint: 'O "h" em espanhol é sempre mudo: "Hola" se lê como "Ola".',
+      },
+      basico: {
+        title: 'Espanhol · Básico',
+        focus: 'Apresentação pessoal',
+        vocabulary: ['Me llamo... = Meu nome é...', 'Soy de... = Sou de...', 'Tengo... años = Tenho... anos', 'Trabajo como... = Trabalho como...'],
+        phrases: ['Me llamo Carlos, soy de México.', 'Tengo veinticinco años.', 'Trabajo como profesor.', '¿Cuántos años tienes?'],
+        reviewGoal: 3,
+        pronunciationHint: 'O "ll" soa como "j" na maioria dos países hispânicos.',
+      },
+      intermediario: {
+        title: 'Espanhol · Intermediário',
+        focus: 'Conversas do cotidiano',
+        vocabulary: ['¿Podría repetir? = Poderia repetir?', 'No entiendo bien = Não entendo bem', '¿Dónde queda...? = Onde fica...?'],
+        phrases: ['¿Podría hablar más despacio, por favor?', 'No entiendo bien lo que dices.', '¿Dónde queda la estación de metro?'],
+        reviewGoal: 4,
+        pronunciationHint: 'O "r" vibrante simples no meio de palavras soa mais suave que o "rr".',
+      },
+      avancado: {
+        title: 'Espanhol · Avançado',
+        focus: 'Expressões e cultura',
+        vocabulary: ['A toda mecha = A toda velocidade', 'Ser pan comido = Ser muito fácil', 'Costar un ojo de la cara = Custar os olhos da cara'],
+        phrases: ['Fue a toda mecha para no perder el tren.', 'Para él, ese examen fue pan comido.', 'Ese coche nuevo le costó un ojo de la cara.'],
+        reviewGoal: 4,
+        pronunciationHint: 'Nas expressões idiomáticas, use a entonação natural do falante nativo.',
+      },
+    },
   },
-  {
-    id: 2,
-    title: 'Trilha 3 · Inglês para rotina',
-    level: 'Iniciante',
-    focus: 'Necessidades básicas',
-    vocabulary: ['I need help = Eu preciso de ajuda', 'Water = Água', 'Where is...? = Onde fica...?'],
-    phrases: ['I need help, please.', 'Can I have some water?', 'Where is the library?'],
-    reviewGoal: 3,
-    pronunciationHint: 'Na frase “Where is”, una os sons para falar de forma contínua.',
+  fr: {
+    name: 'Francês',
+    flag: '🇫🇷',
+    levels: {
+      iniciante: {
+        title: 'Francês · Iniciante',
+        focus: 'Saudações e cortesia',
+        vocabulary: ['Bonjour = Bom dia / Olá', 'Merci = Obrigado(a)', "S'il vous plaît = Por favor", 'Excusez-moi = Com licença', 'Au revoir = Até logo'],
+        phrases: ['Bonjour! Comment allez-vous?', 'Merci beaucoup.', "Excusez-moi, pouvez-vous m'aider?", 'Au revoir!'],
+        reviewGoal: 3,
+        pronunciationHint: 'O "r" francês é gutural, pronunciado na garganta, não na ponta da língua.',
+      },
+      basico: {
+        title: 'Francês · Básico',
+        focus: 'Apresentação e rotina',
+        vocabulary: ["Je m'appelle... = Meu nome é...", "J'habite à... = Eu moro em...", "J'aime... = Eu gosto de...", 'Je travaille = Eu trabalho'],
+        phrases: ["Je m'appelle Marie, j'habite à Paris.", "J'aime le café et les croissants.", 'Je travaille dans un bureau.', 'Quel est votre prénom?'],
+        reviewGoal: 3,
+        pronunciationHint: 'No francês, as letras finais geralmente não são pronunciadas: "aimer" → "ê-mê".',
+      },
+      intermediario: {
+        title: 'Francês · Intermediário',
+        focus: 'Situações práticas',
+        vocabulary: ['Pourriez-vous répéter? = Poderia repetir?', 'Je ne comprends pas = Não entendo', "C'est combien? = Quanto custa?"],
+        phrases: ['Pourriez-vous parler plus lentement?', 'Je ne comprends pas ce que vous dites.', "C'est combien, ce livre?"],
+        reviewGoal: 4,
+        pronunciationHint: 'O "u" francês não existe em português — diga "i" mas arredonde muito os lábios.',
+      },
+      avancado: {
+        title: 'Francês · Avançado',
+        focus: 'Expressões idiomáticas',
+        vocabulary: ['Avoir le cafard = Estar deprimido', 'Casser les pieds = Chatear, irritar', "Il ne faut pas vendre la peau de l'ours = Não conte com o ovo antes de botar"],
+        phrases: ["Il a le cafard depuis que son ami est parti.", 'Tu me casses les pieds avec tes questions!', "Il ne faut pas vendre la peau de l'ours avant de l'avoir tué."],
+        reviewGoal: 4,
+        pronunciationHint: 'A liaison conecta palavras: "les amis" → "lê-za-mi". Pratique devagar.',
+      },
+    },
   },
-];
+  it: {
+    name: 'Italiano',
+    flag: '🇮🇹',
+    levels: {
+      iniciante: {
+        title: 'Italiano · Iniciante',
+        focus: 'Cumprimentos e cortesia',
+        vocabulary: ['Ciao = Olá / Tchau', 'Buongiorno = Bom dia', 'Grazie = Obrigado(a)', 'Per favore = Por favor', 'Scusi = Com licença'],
+        phrases: ['Ciao! Come stai?', 'Buongiorno, piacere.', 'Grazie mille!', 'Scusi, può aiutarmi?'],
+        reviewGoal: 3,
+        pronunciationHint: 'O "c" antes de "i" ou "e" soa como "tch": "ciao" = "tchau".',
+      },
+      basico: {
+        title: 'Italiano · Básico',
+        focus: 'Apresentação pessoal',
+        vocabulary: ['Mi chiamo... = Meu nome é...', 'Sono di... = Sou de...', "Ho... anni = Tenho... anos", 'Lavoro come... = Trabalho como...'],
+        phrases: ['Mi chiamo Lucia, sono di Roma.', "Ho trent'anni.", 'Lavoro come insegnante.', 'Di dove sei?'],
+        reviewGoal: 3,
+        pronunciationHint: 'O italiano é uma língua musical: dê atenção ao ritmo das sílabas.',
+      },
+      intermediario: {
+        title: 'Italiano · Intermediário',
+        focus: 'Conversas práticas',
+        vocabulary: ['Potrebbe ripetere? = Poderia repetir?', 'Non capisco = Não entendo', 'Quanto costa? = Quanto custa?'],
+        phrases: ['Potrebbe parlare più lentamente?', 'Non capisco bene quello che dice.', 'Quanto costa questo libro?'],
+        reviewGoal: 4,
+        pronunciationHint: 'O duplo consoante muda o significado: "nono" (nono) vs "nonno" (avô).',
+      },
+      avancado: {
+        title: 'Italiano · Avançado',
+        focus: 'Expressões e cultura',
+        vocabulary: ['In bocca al lupo = Boa sorte (lit. na boca do lobo)', 'Avere il pollice verde = Ter jeito com plantas', 'Fare le ore piccole = Ficar acordado até tarde'],
+        phrases: ['In bocca al lupo per il tuo esame!', 'Mia nonna ha il pollice verde, il giardino è bellissimo.', 'Abbiamo fatto le ore piccole a festeggiare.'],
+        reviewGoal: 4,
+        pronunciationHint: 'Pratique os ditongos: "uomo", "piede", "fiore" — abra bem a boca.',
+      },
+    },
+  },
+  de: {
+    name: 'Alemão',
+    flag: '🇩🇪',
+    levels: {
+      iniciante: {
+        title: 'Alemão · Iniciante',
+        focus: 'Saudações e palavras básicas',
+        vocabulary: ['Hallo = Olá', 'Guten Morgen = Bom dia', 'Danke = Obrigado(a)', 'Bitte = Por favor / De nada', 'Entschuldigung = Com licença'],
+        phrases: ['Hallo! Wie geht es Ihnen?', 'Guten Morgen, schön Sie zu sehen.', 'Danke schön!', 'Entschuldigung, können Sie mir helfen?'],
+        reviewGoal: 3,
+        pronunciationHint: 'O "ch" alemão soa gutural, como um "r" arrastado — pratique com "Bach".',
+      },
+      basico: {
+        title: 'Alemão · Básico',
+        focus: 'Apresentação pessoal',
+        vocabulary: ['Ich heiße... = Meu nome é...', 'Ich komme aus... = Eu venho de...', 'Ich bin... Jahre alt = Tenho... anos', 'Ich arbeite als... = Trabalho como...'],
+        phrases: ['Ich heiße Thomas und komme aus Berlin.', 'Ich bin dreißig Jahre alt.', 'Ich arbeite als Ingenieur.', 'Woher kommen Sie?'],
+        reviewGoal: 3,
+        pronunciationHint: 'No alemão, todas as letras são pronunciadas. Não existem letras mudas como no francês.',
+      },
+      intermediario: {
+        title: 'Alemão · Intermediário',
+        focus: 'Conversas do dia a dia',
+        vocabulary: ['Könnten Sie das wiederholen? = Poderia repetir?', 'Ich verstehe nicht = Não entendo', 'Was kostet das? = Quanto custa?'],
+        phrases: ['Könnten Sie bitte langsamer sprechen?', 'Ich verstehe nicht, was Sie meinen.', 'Was kostet dieses Buch?'],
+        reviewGoal: 4,
+        pronunciationHint: 'O "ü" não existe em português — diga "i" mas arredonde os lábios como se fosse "u".',
+      },
+      avancado: {
+        title: 'Alemão · Avançado',
+        focus: 'Expressões e compostos',
+        vocabulary: ['Fernweh = Saudade de lugares distantes', 'Weltschmerz = Dor do mundo, melancolia existencial', 'Verschlimmbessern = Piorar tentando melhorar'],
+        phrases: ['Ich habe so ein Fernweh, ich möchte reisen.', 'Nach den Nachrichten fühlte er sich vom Weltschmerz überwältigt.', 'Er hat die Situation verschlimmbessert mit seiner Einmischung.'],
+        reviewGoal: 4,
+        pronunciationHint: 'O alemão usa compostos longos — leia sílaba por sílaba e vá acelerando aos poucos.',
+      },
+    },
+  },
+};
+
+const LANGUAGE_KEYS = ['en', 'es', 'fr', 'it', 'de'];
+const LEVEL_KEYS = ['iniciante', 'basico', 'intermediario', 'avancado'];
+const LEVEL_LABELS = { iniciante: 'Iniciante', basico: 'Básico', intermediario: 'Intermediário', avancado: 'Avançado' };
+
+function getCurrentLesson() {
+  return languageData[state.selectedLanguage].levels[state.selectedLevel];
+}
+
+function getLessonComboIndex() {
+  return LANGUAGE_KEYS.indexOf(state.selectedLanguage) * LEVEL_KEYS.length + LEVEL_KEYS.indexOf(state.selectedLevel);
+}
+
 
 const studyTemplates = [
   {
@@ -72,23 +245,32 @@ const STUDY_TONE_SIMPLE = 'simple';
 
 const state = {
   route: normalizeRoute(window.location.hash),
-  lessonIndex: 0,
+  selectedLanguage: 'en',
+  selectedLevel: 'iniciante',
   reviewCount: 0,
   lastAudioMessage: 'Clique em “Ouvir frase” para simular o áudio da lição.',
   pronunciation: null,
   studyResult: null,
 };
 
+// Restaura idioma e nível salvos pelo usuário
+(function () {
+  const lang = localStorage.getItem('nemo_language');
+  const level = localStorage.getItem('nemo_level');
+  if (lang && LANGUAGE_KEYS.includes(lang)) state.selectedLanguage = lang;
+  if (level && LEVEL_KEYS.includes(level)) state.selectedLevel = level;
+})();
+
 function normalizeRoute(route) {
   const cleanRoute = route.replace('#', '') || '/';
   return ['/', '/dashboard', '/idiomas', '/estudos'].includes(cleanRoute) ? cleanRoute : '/';
 }
 
-function calculatePronunciationScore(lessonIndex, reviewCount) {
+function calculatePronunciationScore(comboIndex, reviewCount) {
   // O módulo mantém o feedback mockado dentro de uma faixa estável de 68 a 93 pontos.
   return (
     PRONUNCIATION_BASE_SCORE +
-    (((lessonIndex + 1) * PRONUNCIATION_LESSON_WEIGHT + reviewCount * PRONUNCIATION_REVIEW_WEIGHT) %
+    (((comboIndex + 1) * PRONUNCIATION_LESSON_WEIGHT + reviewCount * PRONUNCIATION_REVIEW_WEIGHT) %
       PRONUNCIATION_SCORE_RANGE)
   );
 }
@@ -193,8 +375,10 @@ function createDashboardView() {
 }
 
 function createLanguagesView() {
-  const lesson = lessons[state.lessonIndex];
+  const lesson = getCurrentLesson();
+  const lang = languageData[state.selectedLanguage];
   const reviewReady = state.reviewCount >= lesson.reviewGoal;
+
   const pronunciationCard = state.pronunciation
     ? `
       <div class="feedback-banner ${state.pronunciation.score < PRONUNCIATION_WARNING_THRESHOLD ? 'warning' : ''}">
@@ -211,28 +395,38 @@ function createLanguagesView() {
       </div>
     `;
 
-  const tracks = lessons
-    .map(
-      (item, index) => `
-      <article class="mode-card">
-        <span class="chip">${item.level}</span>
-        <h3>${item.title}</h3>
-        <p>${item.focus}</p>
-        <button class="button button-secondary" data-action="select-lesson" data-lesson-index="${index}">
-          ${index === state.lessonIndex ? 'Trilha atual' : 'Abrir trilha'}
-        </button>
-      </article>
-    `
-    )
-    .join('');
+  const languageButtons = LANGUAGE_KEYS.map((key) => {
+    const l = languageData[key];
+    const active = key === state.selectedLanguage ? ' active' : '';
+    return `<button class="selector-btn${active}" data-action="select-language" data-lang="${key}">${l.flag} ${l.name}</button>`;
+  }).join('');
+
+  const levelButtons = LEVEL_KEYS.map((key) => {
+    const active = key === state.selectedLevel ? ' active' : '';
+    return `<button class="selector-btn${active}" data-action="select-level" data-level="${key}">${LEVEL_LABELS[key]}</button>`;
+  }).join('');
+
+  const nextLevelIndex = (LEVEL_KEYS.indexOf(state.selectedLevel) + 1) % LEVEL_KEYS.length;
+  const nextLevelLabel = LEVEL_LABELS[LEVEL_KEYS[nextLevelIndex]];
 
   return `
     <section class="section-title">
       <span class="chip">Modo Idiomas</span>
       <h2>Aprenda com passos pequenos, repetição e prática guiada</h2>
-      <p>Escolha uma trilha, ouça a frase, repita e só avance quando se sentir seguro.</p>
+      <p>Escolha um idioma e nível, ouça a frase, repita e só avance quando se sentir seguro.</p>
     </section>
-    <section class="mode-grid">${tracks}</section>
+    <section class="selector-section">
+      <h3>Idioma</h3>
+      <div class="selector-row">${languageButtons}</div>
+    </section>
+    <section class="selector-section">
+      <h3>Nível</h3>
+      <div class="selector-row">${levelButtons}</div>
+    </section>
+    <div class="active-badge">
+      <span>Estudando agora:</span>
+      <strong>${lang.flag} ${lang.name} · ${LEVEL_LABELS[state.selectedLevel]}</strong>
+    </div>
     <section class="lesson-grid">
       <article class="lesson-card">
         <div class="lesson-header">
@@ -243,11 +437,7 @@ function createLanguagesView() {
         <div class="lesson-progress">
           <div class="progress-chip">
             <strong>${state.reviewCount}/${lesson.reviewGoal}</strong>
-            <span>repetições da lição atual</span>
-          </div>
-          <div class="progress-chip">
-            <strong>${state.lessonIndex + 1}/${lessons.length}</strong>
-            <span>trilhas concluídas na sequência</span>
+            <span>repetições desta lição</span>
           </div>
         </div>
         <div>
@@ -261,8 +451,8 @@ function createLanguagesView() {
         <div class="lesson-actions">
           <button class="button button-primary" data-action="listen">Ouvir frase</button>
           <button class="button button-secondary" data-action="repeat">Marcar repetição</button>
-          <button class="button button-ghost" data-action="next-lesson" ${reviewReady ? '' : 'disabled'}>
-            ${state.lessonIndex === lessons.length - 1 ? 'Revisar do início' : 'Avançar trilha'}
+          <button class="button button-ghost" data-action="next-level" ${reviewReady ? '' : 'disabled'}>
+            Avançar para ${nextLevelLabel}
           </button>
         </div>
         <p class="tiny">${state.lastAudioMessage}</p>
@@ -283,6 +473,7 @@ function createLanguagesView() {
     </section>
   `;
 }
+
 
 function createStudiesView() {
   const result = state.studyResult;
@@ -358,24 +549,36 @@ function createStudiesView() {
 }
 
 function bindActions() {
-  document.querySelectorAll('[data-action="select-lesson"]').forEach((button) => {
+  document.querySelectorAll('[data-action="select-language"]').forEach((button) => {
     button.addEventListener('click', () => {
-      state.lessonIndex = Number(button.dataset.lessonIndex);
+      state.selectedLanguage = button.dataset.lang;
       state.reviewCount = 0;
       state.pronunciation = null;
-      state.lastAudioMessage = 'Nova trilha aberta. Clique em “Ouvir frase” para praticar.';
+      state.lastAudioMessage = 'Idioma alterado. Clique em "Ouvir frase" para praticar.';
+      localStorage.setItem('nemo_language', state.selectedLanguage);
+      render();
+    });
+  });
+
+  document.querySelectorAll('[data-action="select-level"]').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.selectedLevel = button.dataset.level;
+      state.reviewCount = 0;
+      state.pronunciation = null;
+      state.lastAudioMessage = 'Nível alterado. Clique em "Ouvir frase" para praticar.';
+      localStorage.setItem('nemo_level', state.selectedLevel);
       render();
     });
   });
 
   document.querySelector('[data-action="listen"]')?.addEventListener('click', () => {
-    const phrase = lessons[state.lessonIndex].phrases[0];
-    state.lastAudioMessage = `Áudio exemplo reproduzido: “${phrase}”. Agora tente repetir em voz alta.`;
+    const phrase = getCurrentLesson().phrases[0];
+    state.lastAudioMessage = `Áudio exemplo reproduzido: "${phrase}". Agora tente repetir em voz alta.`;
     render();
   });
 
   document.querySelector('[data-action="repeat"]')?.addEventListener('click', () => {
-    const lesson = lessons[state.lessonIndex];
+    const lesson = getCurrentLesson();
     if (state.reviewCount >= lesson.reviewGoal) return;
     state.reviewCount = Math.min(state.reviewCount + 1, lesson.reviewGoal);
     state.lastAudioMessage =
@@ -385,23 +588,25 @@ function bindActions() {
     render();
   });
 
-  document.querySelector('[data-action="next-lesson"]')?.addEventListener('click', () => {
-    state.lessonIndex = state.lessonIndex === lessons.length - 1 ? 0 : state.lessonIndex + 1;
+  document.querySelector('[data-action="next-level"]')?.addEventListener('click', () => {
+    const nextIndex = (LEVEL_KEYS.indexOf(state.selectedLevel) + 1) % LEVEL_KEYS.length;
+    state.selectedLevel = LEVEL_KEYS[nextIndex];
     state.reviewCount = 0;
     state.pronunciation = null;
-    state.lastAudioMessage = 'Próxima trilha carregada. Recomece ouvindo a nova frase.';
+    state.lastAudioMessage = 'Próximo nível carregado. Recomece ouvindo a nova frase.';
+    localStorage.setItem('nemo_level', state.selectedLevel);
     render();
   });
 
   document.querySelector('[data-action="pronunciation"]')?.addEventListener('click', () => {
-    const lesson = lessons[state.lessonIndex];
-    const baseScore = calculatePronunciationScore(state.lessonIndex, state.reviewCount);
+    const lesson = getCurrentLesson();
+    const baseScore = calculatePronunciationScore(getLessonComboIndex(), state.reviewCount);
     state.pronunciation = {
       score: baseScore,
       title: baseScore >= PRONUNCIATION_GOOD_THRESHOLD ? 'Pronúncia muito boa' : 'Pronúncia em progresso',
       message:
         baseScore >= PRONUNCIATION_GOOD_THRESHOLD
-          ? `Você falou com boa clareza. Continue praticando a entonação da frase “${lesson.phrases[0]}”.`
+          ? `Você falou com boa clareza. Continue praticando a entonação da frase "${lesson.phrases[0]}".`
           : `Você está no caminho certo. Tente repetir mais devagar e reforçar esta dica: ${lesson.pronunciationHint}`,
     };
     render();
