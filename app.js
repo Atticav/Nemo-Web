@@ -61,6 +61,12 @@ const studyTemplates = [
   },
 ];
 
+const PRONUNCIATION_BASE_SCORE = 68;
+const PRONUNCIATION_LESSON_WEIGHT = 9;
+const PRONUNCIATION_REVIEW_WEIGHT = 5;
+const PRONUNCIATION_SCORE_RANGE = 26;
+const PRONUNCIATION_GOOD_THRESHOLD = 82;
+
 const state = {
   route: normalizeRoute(window.location.hash),
   lessonIndex: 0,
@@ -376,12 +382,15 @@ function bindActions() {
 
   document.querySelector('[data-action="pronunciation"]')?.addEventListener('click', () => {
     const lesson = lessons[state.lessonIndex];
-    const baseScore = 68 + ((state.lessonIndex + 1) * 9 + state.reviewCount * 5) % 26;
+    const baseScore =
+      PRONUNCIATION_BASE_SCORE +
+      (((state.lessonIndex + 1) * PRONUNCIATION_LESSON_WEIGHT + state.reviewCount * PRONUNCIATION_REVIEW_WEIGHT) %
+        PRONUNCIATION_SCORE_RANGE);
     state.pronunciation = {
       score: baseScore,
-      title: baseScore >= 82 ? 'Pronúncia muito boa' : 'Pronúncia em progresso',
+      title: baseScore >= PRONUNCIATION_GOOD_THRESHOLD ? 'Pronúncia muito boa' : 'Pronúncia em progresso',
       message:
-        baseScore >= 82
+        baseScore >= PRONUNCIATION_GOOD_THRESHOLD
           ? `Você falou com boa clareza. Continue praticando a entonação da frase “${lesson.phrases[0]}”.`
           : `Você está no caminho certo. Tente repetir mais devagar e reforçar esta dica: ${lesson.pronunciationHint}`,
     };
