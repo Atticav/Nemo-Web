@@ -85,6 +85,7 @@ function normalizeRoute(route) {
 }
 
 function calculatePronunciationScore(lessonIndex, reviewCount) {
+  // O módulo mantém o feedback mockado dentro de uma faixa estável de 68 a 93 pontos.
   return (
     PRONUNCIATION_BASE_SCORE +
     (((lessonIndex + 1) * PRONUNCIATION_LESSON_WEIGHT + reviewCount * PRONUNCIATION_REVIEW_WEIGHT) %
@@ -375,6 +376,7 @@ function bindActions() {
 
   document.querySelector('[data-action="repeat"]')?.addEventListener('click', () => {
     const lesson = lessons[state.lessonIndex];
+    if (state.reviewCount >= lesson.reviewGoal) return;
     state.reviewCount = Math.min(state.reviewCount + 1, lesson.reviewGoal);
     state.lastAudioMessage =
       state.reviewCount >= lesson.reviewGoal
